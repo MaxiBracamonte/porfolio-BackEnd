@@ -18,19 +18,17 @@ public class Usuario implements Serializable {
     
     private String nombre;
     private String email;
-    private String apellido;
     private String titulo;
     private String descripcion;
     private String imageURL;
 
     public Usuario() {
     }
-
-    public Usuario(Long id, String nombre, String email, String apellido, String titulo, String descripcion, String imageURL) {
+        
+    public Usuario(Long id, String nombre, String email, String titulo, String descripcion, String imageURL) {
         this.id = id;
         this.nombre = nombre;
         this.email = email;
-        this.apellido = apellido;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.imageURL = imageURL;
@@ -60,14 +58,6 @@ public class Usuario implements Serializable {
         this.email = email;
     }
 
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
     public String getTitulo() {
         return titulo;
     }
@@ -91,7 +81,8 @@ public class Usuario implements Serializable {
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
     }
-    /*
+    
+     /*
     @Override
     public String toString(){
         return "Usuario{" +
@@ -103,5 +94,6 @@ public class Usuario implements Serializable {
                 '}';
     }
     */
+    
 }
 
