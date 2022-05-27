@@ -14,8 +14,7 @@ public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
-    private Long id;
-    
+    private Long id;    
     private String nombre;
     private String email;
     private String titulo;
