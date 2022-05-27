@@ -1,13 +1,14 @@
 
 package com.portfolioweb.proyectointegrador.model;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Educacion{
+public class Educacion implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -68,6 +69,16 @@ public class Educacion{
         this.imagenEdu = imagenEdu;
     }
       
+     /*@Override
+    public String toString(){
+        return "Educacion {" +
+                "id=" + idEdu + '\'' +
+                "Titulo=" + tituloEdu + '\'' +
+                "Fecha=" + fechaEdu + '\'' +
+                "Descripcion=" + descEdu +  '\'' +
+                "UrlImagen=" + imagenEdu + '\'' +
+                '}';
+    }*/
     
 
 }
