@@ -1,85 +1,95 @@
 
 package com.portfolioweb.proyectointegrador.model;
 import java.io.Serializable;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.example.demo.security.entity.Usuario;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-public class Experiencia implements Serializable{
+public class Experiencia implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+    private String titulo;
+    private String empresa;
+    private String fecha;
+    private String ubicacion;
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idExp;
-    private String tituloExp;
-    private int fechaExp;
-    private String descExp;
-    private String imagenExp;
+    @ManyToOne(fetch =  FetchType.LAZY, optional = false)
+    @JoinColumn(name = "usuario_nombre", referencedColumnName = "nombreUsuario")
+    @JsonIgnoreProperties("experiencia")
+    private Usuario usuario;
 
-    public Experiencia() {
-    }
+	public Experiencia() {
+	}
 
-    public Experiencia(Long idExp, String tituloExp, int fechaExp, String descExp, String imagenExp) {
-        this.idExp = idExp;
-        this.tituloExp = tituloExp;
-        this.fechaExp = fechaExp;
-        this.descExp = descExp;
-        this.imagenExp = imagenExp;
-    }
+	public Experiencia(int id, String titulo, String empresa, String fecha, String ubicacion) {
+		this.id = id;
+		this.titulo = titulo;
+		this.empresa = empresa;
+		this.fecha = fecha;
+		this.ubicacion = ubicacion;
+	}
 
-    public Long getIdExp() {
-        return idExp;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public void setIdExp(Long idExp) {
-        this.idExp = idExp;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public String getTituloExp() {
-        return tituloExp;
-    }
+	public String getTitulo() {
+		return titulo;
+	}
 
-    public void setTituloExp(String tituloExp) {
-        this.tituloExp = tituloExp;
-    }
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
 
-    public int getFechaExp() {
-        return fechaExp;
-    }
+	public String getEmpresa() {
+		return empresa;
+	}
 
-    public void setFechaExp(int fechaExp) {
-        this.fechaExp = fechaExp;
-    }
+	public void setEmpresa(String empresa) {
+		this.empresa = empresa;
+	}
 
-    public String getDescExp() {
-        return descExp;
-    }
+	public String getFecha() {
+		return fecha;
+	}
 
-    public void setDescExp(String descExp) {
-        this.descExp = descExp;
-    }
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
+	}
 
-    public String getImagenExp() {
-        return imagenExp;
-    }
+	public String getUbicacion() {
+		return ubicacion;
+	}
 
-    public void setImagenExp(String imagenExp) {
-        this.imagenExp = imagenExp;
-    }
-    
-      /*@Override
-    public String toString(){
-        return "Experiencia {" +
-                "id=" + idExp + '\'' +
-                "Titulo=" + tituloExp + '\'' +
-                "Fecha=" + fechaExp + '\'' +
-                "Descripcion=" + descExp +  '\'' +
-                "UrlImagen=" + imagenExp + '\'' +
-                '}';
-    }*/
-    
+	public void setUbicacion(String ubicacion) {
+		this.ubicacion = ubicacion;
+	}
+	
+	@JsonIgnore
+	public Usuario getUsuario() {
+		return usuario;
+	}
 
-    
-    
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 }

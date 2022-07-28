@@ -1,4 +1,7 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package com.portfolioweb.proyectointegrador.controller;
 
 import java.io.IOException;
@@ -19,77 +22,75 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.Mensaje;
-import com.example.demo.entity.Educacion;
+import com.example.demo.entity.Acercade;
 import com.example.demo.security.entity.Usuario;
 import com.example.demo.security.service.UsuarioService;
-import com.example.demo.service.EducacionService;
+import com.example.demo.service.AcercadeService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
-@RequestMapping("/auth/educaciones")
+@RequestMapping("/auth/contenedores")
 @CrossOrigin(origins = "*")
-public class EducacionResource {
+public class SobremiResource {
 	
 	@Autowired
-	EducacionService educacionService;
+	AcercadeService acercadeService;
 	
 	@Autowired
 	UsuarioService usuarioService;
-
+	
 	@GetMapping("/")
-	public ResponseEntity<List<Educacion>> listEducacion(){
-		List<Educacion> list = educacionService.list();
-		return new ResponseEntity<List<Educacion>>(list, HttpStatus.OK); 
+	public ResponseEntity<List<Acercade>> listAcercade(){
+		List<Acercade> list = acercadeService.list();
+		return new ResponseEntity<List<Acercade>>(list, HttpStatus.OK); 
 	}
 	
 	@PostMapping("/crear")
 	public ResponseEntity<Mensaje> createEntity(@RequestParam("entidad") String entidad, @RequestParam("nombreUs") String nombreUs) throws JsonMappingException, JsonProcessingException{
-		Educacion educacion = new ObjectMapper().readValue(entidad, Educacion.class);
+		Acercade acercade = new ObjectMapper().readValue(entidad, Acercade.class);
 		List<Usuario> usuarios = usuarioService.listaUsuario();
 		for(Usuario usuario : usuarios) {
 			if(usuario.getNombreUsuario().equals(nombreUs)) 
-				educacion.setUsuario(usuario);
+				acercade.setUsuario(usuario);
 		}
-		Educacion dbEducacion = educacionService.save(educacion);
-		if(dbEducacion!=null) {
-			return new ResponseEntity<Mensaje>(new Mensaje("Educacion creada con exito"), HttpStatus.OK);
+		Acercade dbAcercade = acercadeService.save(acercade);
+		if(dbAcercade!=null) {
+			return new ResponseEntity<Mensaje>(new Mensaje("Objeto acercade creado con exito"), HttpStatus.OK);
 		} else {
-			return new ResponseEntity<Mensaje>(new Mensaje("Educacion no creada"), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<Mensaje>(new Mensaje("Objeto acercade no creado"), HttpStatus.BAD_REQUEST);
 		}
 	}
 	
 	@PutMapping("/editar/{id}")
 	public ResponseEntity<?> updateEntity(@PathVariable("id") int id, @RequestParam("entidad") String entidad) throws JsonMappingException, JsonProcessingException,  IOException{
 		
-		Educacion educacion = new ObjectMapper().readValue(entidad, Educacion.class);
+		Acercade acercade = new ObjectMapper().readValue(entidad, Acercade.class);
 		
-		if(!educacionService.existsById(id))
+		if(!acercadeService.existsById(id))
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("no existe");
-		if(educacionService.existsByEntidad(educacion.getTitulo()) && educacionService.getByEntidad(educacion.getTitulo()).get().getId() != id)
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("esa educacion ya existe");
-		if(StringUtils.isBlank(educacion.getTitulo()))
-			return new ResponseEntity<>(new Mensaje("La eduacion es obligatoria"), HttpStatus.BAD_REQUEST);
+		if(acercadeService.existsByTexto(acercade.getTexto()) && acercadeService.getByTexto(acercade.getTexto()).get().getId() != id)
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ese texto ya existe");
+		if(StringUtils.isBlank(acercade.getTexto()))
+			return new ResponseEntity<>(new Mensaje("El texto es obligatorio"), HttpStatus.BAD_REQUEST);
 	
-		Educacion educacionEntidad = educacionService.getOne(id).get();
-		educacionEntidad.setEntidad(educacion.getEntidad());
-		educacionEntidad.setTitulo(educacion.getTitulo());
-		educacionEntidad.setFecha(educacion.getFecha());
-		educacionEntidad.setUbicacion(educacion.getUbicacion());
+		Acercade acercadeEntidad = acercadeService.getOne(id).get();
+		acercadeEntidad.setTexto(acercade.getTexto());
 		
-		educacionService.save(educacionEntidad);
-		return new ResponseEntity<>(new Mensaje("Educacion actualizada"), HttpStatus.OK);
+		acercadeService.save(acercadeEntidad);
+		return new ResponseEntity<>(new Mensaje("Texto descriptivo actualizado"), HttpStatus.OK);
 		
 	}
 	
 	@DeleteMapping("/eliminar/{id}")
 	public ResponseEntity<?> eliminar(@PathVariable("id") int id){
-		if(!educacionService.existsById(id)) 
+		if(!acercadeService.existsById(id)) 
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("no existe");
-		educacionService.delete(id);
+		acercadeService.delete(id);
 		return new ResponseEntity<>(new Mensaje("Entidad eliminada"), HttpStatus.OK);
 	}
+	
+	
 
-    
 }

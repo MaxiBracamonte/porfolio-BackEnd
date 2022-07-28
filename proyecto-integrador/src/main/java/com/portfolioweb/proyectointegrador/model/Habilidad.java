@@ -1,5 +1,9 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package com.portfolioweb.proyectointegrador.model;
+
 import java.io.Serializable;
 
 import javax.persistence.Entity;
@@ -15,33 +19,28 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-public class Educacion implements Serializable {
+public class Habilidad implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String entidad;
-    private String titulo;
-    private String fecha;
-    private String ubicacion;
-    
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "usuario_nombre", referencedColumnName = "nombreUsuario")
-    @JsonIgnoreProperties("educacion")
-    private Usuario usuario;
-
-	public Educacion() {
+	private String titulo;
+	private int porcentaje;
+	
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "nombre_usuario", referencedColumnName = "nombreUsuario")
+	@JsonIgnoreProperties("habilidad")
+	private Usuario usuario;
+	
+	public Habilidad() {
 	}
 
-	public Educacion(int id, String entidad, String titulo, String fecha, String ubicacion) {
-		super();
+	public Habilidad(int id, String titulo, int porcentaje) {
 		this.id = id;
-		this.entidad = entidad;
 		this.titulo = titulo;
-		this.fecha = fecha;
-		this.ubicacion = ubicacion;
+		this.porcentaje = porcentaje;
 	}
 
 	public int getId() {
@@ -52,14 +51,6 @@ public class Educacion implements Serializable {
 		this.id = id;
 	}
 
-	public String getEntidad() {
-		return entidad;
-	}
-
-	public void setEntidad(String entidad) {
-		this.entidad = entidad;
-	}
-
 	public String getTitulo() {
 		return titulo;
 	}
@@ -68,20 +59,12 @@ public class Educacion implements Serializable {
 		this.titulo = titulo;
 	}
 
-	public String getFecha() {
-		return fecha;
+	public int getPorcentaje() {
+		return porcentaje;
 	}
 
-	public void setFecha(String fecha) {
-		this.fecha = fecha;
-	}
-
-	public String getUbicacion() {
-		return ubicacion;
-	}
-
-	public void setUbicacion(String ubicacion) {
-		this.ubicacion = ubicacion;
+	public void setPorcentaje(int porcentaje) {
+		this.porcentaje = porcentaje;
 	}
 	
 	@JsonIgnore
@@ -92,5 +75,6 @@ public class Educacion implements Serializable {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+
 
 }

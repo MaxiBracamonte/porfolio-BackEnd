@@ -1,5 +1,6 @@
 
 package com.portfolioweb.proyectointegrador.model;
+
 import java.io.Serializable;
 
 import javax.persistence.Entity;
@@ -15,33 +16,30 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-public class Educacion implements Serializable {
-	
+public class Proyecto implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String entidad;
-    private String titulo;
-    private String fecha;
-    private String ubicacion;
+	private String titulo;
+    private String descripcion;
+    private String link;
     
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "usuario_nombre", referencedColumnName = "nombreUsuario")
-    @JsonIgnoreProperties("educacion")
+    @JoinColumn(name = "nombre_usuario", referencedColumnName = "nombreUsuario")
+    @JsonIgnoreProperties("proyecto")
     private Usuario usuario;
 
-	public Educacion() {
+	public Proyecto() {
 	}
 
-	public Educacion(int id, String entidad, String titulo, String fecha, String ubicacion) {
-		super();
+	public Proyecto(int id, String titulo, String descripcion, String link) {
 		this.id = id;
-		this.entidad = entidad;
 		this.titulo = titulo;
-		this.fecha = fecha;
-		this.ubicacion = ubicacion;
+		this.descripcion = descripcion;
+		this.link = link;
 	}
 
 	public int getId() {
@@ -52,14 +50,6 @@ public class Educacion implements Serializable {
 		this.id = id;
 	}
 
-	public String getEntidad() {
-		return entidad;
-	}
-
-	public void setEntidad(String entidad) {
-		this.entidad = entidad;
-	}
-
 	public String getTitulo() {
 		return titulo;
 	}
@@ -68,20 +58,20 @@ public class Educacion implements Serializable {
 		this.titulo = titulo;
 	}
 
-	public String getFecha() {
-		return fecha;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setFecha(String fecha) {
-		this.fecha = fecha;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
-	public String getUbicacion() {
-		return ubicacion;
+	public String getLink() {
+		return link;
 	}
 
-	public void setUbicacion(String ubicacion) {
-		this.ubicacion = ubicacion;
+	public void setLink(String link) {
+		this.link = link;
 	}
 	
 	@JsonIgnore
